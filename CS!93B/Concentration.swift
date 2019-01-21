@@ -8,10 +8,28 @@
 
 import Foundation
 
-class Concentration: CustomStringConvertible {
+class Concentration {
     var cards: [Card] = []
+    var indexOfFaceupCard: Int?
     func chooseCard(at index: Int) {
-        cards[index].isFacedUp = !cards[index].isFacedUp
+        if let matchIndex = indexOfFaceupCard {
+            if index != matchIndex {
+                if cards[matchIndex].identifier == cards[index].identifier {
+                    cards[matchIndex].isMatched = true
+                    cards[index].isMatched = true
+                }
+                indexOfFaceupCard = nil
+            }
+        } else {
+            indexOfFaceupCard = index
+        }
+        cards[index].isFacedUp = true
+    }
+    func unchooseCards(with indexes: [Int]) {
+        for index in indexes {
+            cards[index].isFacedUp = false
+        }
+
     }
     init(numberOfParisOfCards: Int) {
         //[1,numberOfParisOfCards]
@@ -20,13 +38,5 @@ class Concentration: CustomStringConvertible {
             cards += [card, card]
         }
         cards = cards.shuffled()
-    }
-    var description: String {
-        var res = ""
-        for card in cards {
-            res = String(card.identifier) + "," + card.emoji
-            res += " "
-        }
-        return res
     }
 }
