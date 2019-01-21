@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     var flipCount = 0 {
         //propery oberserver
         didSet {
-            flipCountLabel.text = "Flips: \(flipCount)"
+            flipCountLabel.text = "Scores: \(flipCount)"
         }
     }
     @IBOutlet var cardButtons: [UIButton]!
