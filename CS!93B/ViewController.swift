@@ -9,15 +9,18 @@
 import UIKit
 
 class ViewController: UIViewController {
-    lazy var game = Concentration(numberOfParisOfCards: (cardButtons.count+1 ) / 2)
-    var flipCount = 0 {
+    private lazy var game = Concentration(numberOfParisOfCards: numberOfPairsOfCards)
+    var numberOfPairsOfCards: Int {
+        return (cardButtons.count + 1)/2
+    }
+    private(set) var flipCount = 0 {
         //propery oberserver
         didSet {
             flipCountLabel.text = "Scores: \(flipCount)"
         }
     }
-    @IBOutlet var cardButtons: [UIButton]!
-    @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet private var cardButtons: [UIButton]!
+    @IBOutlet private weak var flipCountLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
@@ -30,7 +33,7 @@ class ViewController: UIViewController {
             updateCard()
         }
     }
-    func updateCard() {
+    private func updateCard() {
         var faceUpIndexes: [Int] = []
         for index in cardButtons.indices {
             let button = cardButtons[index]

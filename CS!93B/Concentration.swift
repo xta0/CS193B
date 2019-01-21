@@ -9,8 +9,8 @@
 import Foundation
 
 class Concentration {
-    var cards: [Card] = []
-    var indexOfFaceupCard: Int?
+    private(set) var cards: [Card] = []
+    private var indexOfFaceupCard: Int?
     func chooseCard(at index: Int) {
         if let matchIndex = indexOfFaceupCard {
             if index != matchIndex {

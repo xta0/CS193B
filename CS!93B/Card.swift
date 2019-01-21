@@ -13,13 +13,13 @@ struct Card {
     var isMatched = false
     var identifier: Int
     var emoji: String = ""
-    static var identifierFactory = 0
-    static func getUniqueIdentifier() -> Int {
+    private static var identifierFactory = 0
+    private static func getUniqueIdentifier() -> Int {
         identifierFactory += 1
         return identifierFactory
     }
-    static var emojis: [String] = ["🇨🇳", "🇧🇷", "🇨🇦", "🇺🇲", "🇯🇵", "🇰🇷", "🇩🇪", "🇳🇬", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "🇬🇧", "🇨🇵", "🇪🇦", "🇨🇺"]
-    static func randomEmoji() -> String? {
+    private static var emojis: [String] = ["🇨🇳", "🇧🇷", "🇨🇦", "🇺🇲", "🇯🇵", "🇰🇷", "🇩🇪", "🇳🇬", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "🇬🇧", "🇨🇵", "🇪🇦", "🇨🇺"]
+    private static func randomEmoji() -> String? {
         if  emojis.count > 0 {
             let index = Int(arc4random_uniform(UInt32(emojis.count)))
             let res =  emojis.remove(at: index)
