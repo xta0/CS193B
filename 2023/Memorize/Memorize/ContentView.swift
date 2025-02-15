@@ -7,36 +7,34 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
+    @ObservedObject var viewModel: EmojiMemoryGame
+    private let aspectRatio: CGFloat =  2/3
     var body: some View {
-        HStack {
-            CardView(isFaceUp: true)
-            CardView()
-            CardView()
-            CardView()
+        VStack {
+            cards
+                .animation(.default, value: viewModel.cards)
+                .padding()
+                .background(.gray)
+            Button("Shuffle") {
+                viewModel.shuffle()
+            }
+        }.background(Color.red)
+    }
+    
+    private var cards: some View {
+        AspectVGrid(viewModel.cards, aspectRatio: aspectRatio){ card in
+            CardView(card: card)
+                .padding(4)
+                .onTapGesture {
+                    viewModel.choose(card)
+                }
         }
-        .foregroundColor(.orange)
-        .padding()
+        .foregroundColor(viewModel.color)
     }
 }
 
-struct CardView: View {
-    var isFaceUp: Bool = false
-    var body: some View {
-        if isFaceUp {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12.0)
-                    .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 12.0)
-                    .strokeBorder(lineWidth: 2)
-                Text("Hello").font(.largeTitle)
-            }
-        } else {
-            RoundedRectangle(cornerRadius: 12.0)
-        }
-    }
-}
 
 #Preview {
-    ContentView()
+    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
 }
